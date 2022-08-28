@@ -16,7 +16,7 @@ public class ApplicationDataRepository {
 
 			restErrorCodeProperties.load(ApplicationDataRepository.class.getClassLoader().getResourceAsStream("RestErrorCode.properties"));
 			serviceErrorCodeProperties.load(ApplicationDataRepository.class.getClassLoader().getResourceAsStream("ServiceErrorCode.properties"));
-			weatherAPIProperties.load(ApplicationDataRepository.class.getClassLoader().getResourceAsStream("weatherapi.properties"));
+			weatherAPIProperties.load(ApplicationDataRepository.class.getClassLoader().getResourceAsStream("WeatherAPI.properties"));
 
 		} catch (IOException ex) {
 			logger.error(ex);
