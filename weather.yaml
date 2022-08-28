@@ -1,0 +1,120 @@
+swagger: '2.0'
+info:
+  description: Weather Report Plateform - API endpoint Specification
+  version: "1.0.0"
+  title: "Weather Report"
+  termsOfService: "https://weatherreport.com/terms.html"
+  contact:
+    email: "sidhu.govind@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "weatherreport.com"
+basePath: "/api/v1"
+paths:
+  /weather/city/:  
+    get:
+      tags:
+        - weather
+      summary: Get weather report for given city 
+      description: Get weather reports like temperature, windspeed, clouds etc
+      operationId: getCityWeather
+      parameters:
+        - $ref: '#/parameters/acceptParam'
+        - $ref: '#/parameters/userAgentParam'
+        - $ref: '#/parameters/acceptEncodingParam'
+        - $ref: '#/parameters/cookieParam'
+        - $ref: '#/parameters/xRequestIdParam'
+      responses:
+        '200':
+          description: List of Days Reports of weather 
+          schema:
+            $ref: '#/definitions/WeatherReportResponse'
+        '400':
+          description: |
+            ** Error codes: **
+            * 1000 - No city found
+            * 4003 - Access Denied
+            * 4000 - Bad request
+            * 5000 - Internal Server Error
+          schema:
+            $ref: '#/definitions/RestError'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/RestError'   
+
+     
+parameters:
+  acceptParam:
+   name: Accept
+   in: header
+   required: true
+   type: string
+  userAgentParam:
+   name: User-Agent
+   in: header
+   required: true
+   type: string
+  acceptEncodingParam:
+   name: Accept-Encoding
+   in: header
+   required: false
+   type: string
+  xRequestIdParam:
+   name: X-Request-Id
+   in: header
+   required: true
+   type: string
+  cookieParam:
+   name: Cookie
+   in: header
+   required: true
+   type: string
+  sessionId:
+   name: SessionId
+   in: header
+   required: true
+   type: string
+  apiKey:
+   name: SessionId
+   in: header
+   required: true
+   type: string
+definitions:         
+          
+  WeatherReportResponse:
+    properties:
+      weatherReports:
+        type: array
+        items:
+          $ref: '#/definitions/WeatherReport'        
+  
+  WeatherReport:
+    properties:
+     city:
+       type: string
+     cloud:
+       type: string
+     rainAlert:
+       type: string 
+     windAlert:
+       type: string       
+     temperatureAlert:
+       type: string
+     highTemperature:
+       type: number
+     lowTemperature:
+       type: number
+     windSpeed:
+       type: number
+       
+  RestError:
+    properties:
+      errorCode:
+        type: string
+      errorMessage:
+        type: string
+    required:
+      - errorCode
+      - errorMessage
