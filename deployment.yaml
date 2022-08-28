@@ -30,4 +30,4 @@ spec:
           image: dockerhublive/weather # Image that will be used inside the container in the cluster
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080 # The port that the container is running on in the cluster
+            - containerPort: 8080 # The port that the container is running on in the cluster
