@@ -9,6 +9,9 @@ import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.application.common.ApplicationDataRepository;
 
@@ -46,4 +49,15 @@ public class ApplicationConfig {
 	      .setNeverCacheHTTP10ResponsesWithQueryString(false)
 	      .build();
 	  }
+	  
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		      return new WebMvcConfigurer() {
+		         @Override
+		         public void addCorsMappings(CorsRegistry registry) {
+		            registry.addMapping("/weather/{city}").allowedOrigins("http://localhost:8080");
+		         }
+		      };
+		   }
 }
