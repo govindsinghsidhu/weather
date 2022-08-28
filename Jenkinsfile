@@ -15,7 +15,7 @@ pipeline {
 stage('Build Docker image') {
     agent any
 steps{
-sh 'docker build -t dockerhublive/weather:latest .'
+sh 'docker build -t dockerhublive/weather .'
 }
 }
 stage('Docker Push') {
@@ -23,14 +23,14 @@ stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push dockerhublive/weather:latest'
+          sh 'docker push dockerhublive/weather'
         }
       }
     }
 stage('Docker Cleaning up') {
     agent any
 steps{
-sh 'docker rmi dockerhublive/weather:latest'
+sh 'docker rmi dockerhublive/weather'
 }
 }
 stage('Kubernate Deployment') {
