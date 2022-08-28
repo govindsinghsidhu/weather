@@ -1,7 +1,7 @@
 pipeline {
     agent none
    stages {
-        stage('Maven Install') {
+        stage('Build code') {
       agent {
         docker {
             image 'maven:3.8.1-adoptopenjdk-11'
@@ -12,13 +12,13 @@ pipeline {
         sh 'mvn clean install'
       }
     }
-stage('Build Docker image') {
+stage('Build image') {
     agent any
 steps{
 sh 'docker build -t dockerhublive/weather:latest .'
 }
 }
-stage('Docker Push') {
+stage('Push image') {
       agent any
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
@@ -27,16 +27,23 @@ stage('Docker Push') {
         }
       }
     }
-stage('Docker Cleaning up') {
-    agent any
-steps{
-sh 'docker rmi dockerhublive/weather:latest'
-}
-}
-stage('Kubernate Deployment') {
+
+stage('Deploy') {
     agent any
 steps{
 sh 'kubectl apply -f deployment.yaml'
+}
+}
+stage('restart') {
+    agent any
+steps{
+sh 'kubectl rollout restart deployment weather'
+}
+}
+stage('Cleanup') {
+    agent any
+steps{
+sh 'docker rmi dockerhublive/weather:latest'
 }
 }       
        
