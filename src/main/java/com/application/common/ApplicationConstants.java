@@ -19,8 +19,8 @@ public interface ApplicationConstants {
 	public final String CITY = " city : ";
 	public final String ERROR_CODE = "Error Code ";
 	public final String ERROR_MESSAGE = " Error Message ";
-	public final int TEMP_ALERT_LIMIT = 40;
-	public final int WIND_ALERT_LIMIT = 10;
+	public final double TEMP_ALERT_LIMIT = Double.parseDouble(ApplicationDataRepository.weatherAPIProperties.getProperty("tempAlertLimit"));
+	public final double WIND_ALERT_LIMIT = Double.parseDouble(ApplicationDataRepository.weatherAPIProperties.getProperty("windAlertLimit"));
 	public final int CACHE_TIME = Integer.parseInt(ApplicationDataRepository.weatherAPIProperties.getProperty("cacheTime"));
 	
 }

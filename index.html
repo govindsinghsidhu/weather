@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Weather Forecast</title>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+</head>
+
+<body style="text-align: center;" id="body">
+
+	<h1 style="color: green;">Weather Forecast Report</h1>
+
+	<lable>City Name</lable>
+	<input type="text" id="city" name="city"></input>
+
+	<button onclick="constructTable('#table')">Get Report</button>
+
+	<br>
+	<br>
+	<p id="errorMessage" style="font-size: 20px; font-weight: bold; color:red"></p>
+	<div id="div1"></div>
+	
+
+	<script>
+		var errorMessage = document.getElementById("errorMessage");
+		var division =document.getElementById("div1");
+		
+		function constructTable(selector) {
+			division.innerHTML="";
+			errorMessage.innerHTML ="";
+			var city = document.getElementById("city").value;
+			if(city =="")
+				{
+				errorMessage.innerHTML ="Please enter city name";
+				return false;
+				}
+			$.ajax({
+	            type: "GET",
+	            url: "http://localhost:8085/api/v1/weather/"+city,
+	            data: $(this).serialize(),
+	            success: function(data){
+	            	
+	            	var result =JSON.stringify(data);
+	            	var json = JSON.parse(result);
+	            	
+	            	var weatherReports = JSON.stringify(json["weatherReports"]);
+	            	
+	            	var list = JSON.parse(weatherReports);
+	            	var htmltable ="<table id='mytable' border='1' align='center'><tr><td>Clould Status</td><td>High Temperature</td><td>LowTemperature</td><td>Wind Speed</td><td>Rain Alert</td><td>Wind Alert</td><td>Temperature Alert</td><tr>";
+	            	 
+	            	var td2,td3,td4,td5,td6,td7,td8;
+	            	 for(var i=0;i<list.length;i++)
+	            	    { 
+	            	        
+	            	         
+	            	         td2="<tr><td>"+list[i]["cloud"]+"</td>";
+	            	        if(list[i]["rainAlert"] == null)
+	            	        td3 = "<td> No Alert</td>";
+	            	        else
+	            	        	 td3="<td>"+list[i]["rainAlert"]+"</td>";
+	            	       if(list[i]["windAlert"] ==null) 
+	            	    	    td4="<td> No Alert</td>";   
+	            	       else
+	            	         td4="<td>"+list[i]["windAlert"]+"</td>";
+	            	        
+	            	        if(list[i]["temperatureAlert"] == null)	
+	            	        	 td5="<td> No Alert</td>";
+	            	        else
+	            	         td5="<td>"+list[i]["temperatureAlert"]+"</td></tr>";
+	            	        
+	            	         td6="<td>"+list[i]["highTemperature"]+" celsius</td>";
+	            	         td7="<td>"+list[i]["lowTemperature"]+" celsius</td>";
+	            	         td8="<td>"+list[i]["windSpeed"]+" metre/sec</td>";
+	            	         htmltable =  htmltable+td2+td6+td7+td8+td3+td4+td5;
+	            	       
+	            	    }  
+	            	 division.innerHTML=htmltable+"</table>";
+	            },
+	            error: function() {
+	            	errorMessage.innerHTML =city +" city not found!";
+	            	
+	            }
+	          });
+			
+		}
+		
+		
+	</script>
+</body>
+</html>
