@@ -34,18 +34,13 @@ steps{
 sh 'kubectl apply -f deployment.yaml'
 }
 }
-stage('restart') {
+stage('Restart') {
     agent any
 steps{
 sh 'kubectl rollout restart deployment weather'
 }
 }
-stage('Cleanup') {
-    agent any
-steps{
-sh 'docker rmi dockerhublive/weather:latest'
-}
-}       
+       
        
     }
 }
