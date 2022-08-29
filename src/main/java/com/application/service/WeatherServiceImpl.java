@@ -17,8 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.application.bean.Weather;
 import com.application.bean.WeatherData;
 import com.application.bean.WeatherReport;
-import com.application.common.ApplicationConstants;
-import com.application.validator.CommonValidator;
+import com.application.validator.WeatherReportValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,21 +43,20 @@ public class WeatherServiceImpl implements WeatherService {
 		 for(com.application.bean.List list : weatherData.getList()) {
 			WeatherReport weatherReport = new WeatherReport();
 			
+			double maxTemperature = list.getMain().getTemp_max();
+			double windSpeed = list.getWind().getSpeed();
+			
 			weatherReport.setCity(weatherData.getCity().getName());
-			weatherReport.setHighTemperature(list.getMain().getTemp_max());
+			weatherReport.setHighTemperature(maxTemperature);
 			weatherReport.setLowTemperature(list.getMain().getTemp_min());
-			weatherReport.setWindSpeed(list.getWind().getSpeed());
+			weatherReport.setWindSpeed(windSpeed);
 			Weather weather = list.getWeather().get(0);
 			weatherReport.setCloud(weather.getDescription());
 			
-			if(CommonValidator.temperatureCheck.test(list.getMain().getTemp_max()))
-				weatherReport.setTemperatureAlert(ApplicationConstants.USE_SUNSCREEN);
+			WeatherReportValidator.temeratureAlert.apply(maxTemperature, weatherReport);
+			WeatherReportValidator.windAlert.apply(windSpeed, weatherReport);		
+			WeatherReportValidator.rainAlert.apply(weather.getMain(), weatherReport);
 			
-			if(CommonValidator.windCheck.test(list.getWind().getSpeed()))
-				weatherReport.setWindAlert(ApplicationConstants.TOO_WINDY);
-			
-			if(CommonValidator.rainCheck.test(weather.getMain()))
-				weatherReport.setRainAlert(ApplicationConstants.CARRY_UMBRELLA);
 			
 			weatherReportList.add(weatherReport);
 		}
@@ -73,7 +71,7 @@ public class WeatherServiceImpl implements WeatherService {
 	      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 	      HttpEntity <String> entity = new HttpEntity<String>(headers);
 	      
-	      String uri = CommonValidator.getURI(city);
+	      String uri = WeatherReportValidator.getURI(city);
 	      
 	      String jsonResult = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class).getBody();
 	     

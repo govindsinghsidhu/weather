@@ -2,8 +2,6 @@ package com.application.controller;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ import com.application.converter.ApplicationResponseConverter;
 import com.application.errorcode.RestErrorCode;
 import com.application.exception.RestException;
 import com.application.service.WeatherService;
-import com.application.validator.CommonValidator;
+import com.application.validator.WeatherReportValidator;
 
 @RestController
 public class WeatherController {
@@ -35,7 +33,7 @@ public class WeatherController {
 		
 		List<WeatherReport> weatherReportList = weatherService.getWeatherReport(city);
 
-		if(CommonValidator.checkWeatherReportList.test(weatherReportList)) {
+		if(WeatherReportValidator.weatherReportcheck.test(weatherReportList)) {
 			LOGGER.error(ApplicationConstants.ERROR_CODE + RestErrorCode.NO_CITY_FOUND.getErrorCode() + ApplicationConstants.ERROR_MESSAGE + RestErrorCode.NO_CITY_FOUND.getErrorMessage() + ApplicationConstants.CITY + city);
 			throw new RestException(RestErrorCode.NO_CITY_FOUND.getErrorMessage(),RestErrorCode.NO_CITY_FOUND.getErrorCode());   	
 			}
