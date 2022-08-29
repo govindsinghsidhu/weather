@@ -3,8 +3,6 @@ package com.application.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ import com.application.bean.Weather;
 import com.application.bean.WeatherData;
 import com.application.bean.WeatherReport;
 import com.application.common.ApplicationConstants;
-import com.application.validator.ApiValidator;
+import com.application.validator.CommonValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,9 +29,7 @@ public class WeatherServiceImpl implements WeatherService {
 	RestTemplate restTemplate;
 	
 	final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceImpl.class);
-	private Predicate<Double> temperatureCheck = temperature -> temperature > ApplicationConstants.TEMP_ALERT_LIMIT;
-	private Predicate<Double> windCheck = windSpeed -> windSpeed > ApplicationConstants.WIND_ALERT_LIMIT;
-	private Predicate<String> rainCheck = rainStatus -> rainStatus.contains(ApplicationConstants.RAIN);
+	
 
 	@Override
 	public List<WeatherReport> getWeatherReport(String city){
@@ -55,13 +51,13 @@ public class WeatherServiceImpl implements WeatherService {
 			Weather weather = list.getWeather().get(0);
 			weatherReport.setCloud(weather.getDescription());
 			
-			if(temperatureCheck.test(list.getMain().getTemp_max()))
+			if(CommonValidator.temperatureCheck.test(list.getMain().getTemp_max()))
 				weatherReport.setTemperatureAlert(ApplicationConstants.USE_SUNSCREEN);
 			
-			if(windCheck.test(list.getWind().getSpeed()))
+			if(CommonValidator.windCheck.test(list.getWind().getSpeed()))
 				weatherReport.setWindAlert(ApplicationConstants.TOO_WINDY);
 			
-			if(rainCheck.test(weather.getMain()))
+			if(CommonValidator.rainCheck.test(weather.getMain()))
 				weatherReport.setRainAlert(ApplicationConstants.CARRY_UMBRELLA);
 			
 			weatherReportList.add(weatherReport);
@@ -77,7 +73,7 @@ public class WeatherServiceImpl implements WeatherService {
 	      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 	      HttpEntity <String> entity = new HttpEntity<String>(headers);
 	      
-	      String uri = ApiValidator.getURI(city);
+	      String uri = CommonValidator.getURI(city);
 	      
 	      String jsonResult = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class).getBody();
 	     

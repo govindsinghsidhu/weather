@@ -2,6 +2,7 @@ package com.application.controller;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import com.application.converter.ApplicationResponseConverter;
 import com.application.errorcode.RestErrorCode;
 import com.application.exception.RestException;
 import com.application.service.WeatherService;
+import com.application.validator.CommonValidator;
 
 @RestController
 public class WeatherController {
@@ -27,13 +29,13 @@ public class WeatherController {
 	 WeatherService weatherService;
 
 	 final Logger LOGGER = LoggerFactory.getLogger(WeatherController.class);
-	 
-	@GetMapping("/weather/{city}")
+	
+	 @GetMapping("/weather/{city}")
 	public ResponseEntity<WeatherReportResponse> getCityWeather(@PathVariable String city) throws RestException {
 		
 		List<WeatherReport> weatherReportList = weatherService.getWeatherReport(city);
 
-		if(weatherReportList == null || weatherReportList.size() == 0) {
+		if(CommonValidator.checkWeatherReportList.test(weatherReportList)) {
 			LOGGER.error(ApplicationConstants.ERROR_CODE + RestErrorCode.NO_CITY_FOUND.getErrorCode() + ApplicationConstants.ERROR_MESSAGE + RestErrorCode.NO_CITY_FOUND.getErrorMessage() + ApplicationConstants.CITY + city);
 			throw new RestException(RestErrorCode.NO_CITY_FOUND.getErrorMessage(),RestErrorCode.NO_CITY_FOUND.getErrorCode());   	
 			}

@@ -1,9 +1,18 @@
 package com.application.validator;
 
+import java.util.List;
+import java.util.function.Predicate;
+
+import com.application.bean.WeatherReport;
 import com.application.common.ApplicationConstants;
 
-public interface ApiValidator {
+public interface CommonValidator {
 
+	public Predicate<List<WeatherReport>> checkWeatherReportList = list -> (list == null || list.size() == 0);
+	public Predicate<Double> temperatureCheck = temperature -> temperature > ApplicationConstants.TEMP_ALERT_LIMIT;
+	public Predicate<Double> windCheck = windSpeed -> windSpeed > ApplicationConstants.WIND_ALERT_LIMIT;
+	public Predicate<String> rainCheck = rainStatus -> rainStatus.contains(ApplicationConstants.RAIN);
+	
 	public static String getURI(String city) {
 
 		return new StringBuilder()
