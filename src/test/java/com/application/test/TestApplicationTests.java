@@ -15,18 +15,17 @@ import com.application.service.WeatherService;
 import com.application.service.WeatherServiceImpl;
 
 @SpringBootTest
-class TestApplicationTests  implements ApplicationContextAware{
-	
+class TestApplicationTests implements ApplicationContextAware {
+
 	private ApplicationContext context;
-	
+
 	@Override
 	@Autowired
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.context = applicationContext;
 
-	
 	}
-	
+
 	@Autowired
 	RestTemplate restTemplate;
 
@@ -34,18 +33,10 @@ class TestApplicationTests  implements ApplicationContextAware{
 	void contextLoadsTest() {
 	}
 
-	
 	@Test
 	void checkBeanTest() {
 		WeatherService weatherService = context.getBean("WeatherService", WeatherService.class);
-		assertEquals(WeatherServiceImpl.class,weatherService.getClass() 
-	    );
+		assertEquals(WeatherServiceImpl.class, weatherService.getClass());
 	}
-	
-	
-	
-	
-	
 
-	
 }

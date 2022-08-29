@@ -6,227 +6,232 @@ import com.google.gson.annotations.SerializedName;
 
 public class WeatherReport {
 
+	@SerializedName("city")
+	private String city;
 
-	  @SerializedName("city")
-	  private String city ;
+	@SerializedName("cloud")
+	private String cloud;
 
-	  @SerializedName("cloud")
-	  private String cloud ;
+	@SerializedName("rainAlert")
+	private String rainAlert;
 
-	  @SerializedName("rainAlert")
-	  private String rainAlert ;
+	@SerializedName("windAlert")
+	private String windAlert;
 
-	  @SerializedName("windAlert")
-	  private String windAlert ;
+	@SerializedName("temperatureAlert")
+	private String temperatureAlert;
 
-	  @SerializedName("temperatureAlert")
-	  private String temperatureAlert;
+	@SerializedName("highTemperature")
+	private double highTemperature;
 
-	  @SerializedName("highTemperature")
-	  private double highTemperature ;
+	@SerializedName("lowTemperature")
+	private double lowTemperature;
 
-	  @SerializedName("lowTemperature")
-	  private double lowTemperature ;
+	@SerializedName("windSpeed")
+	private double windSpeed;
 
-	  @SerializedName("windSpeed")
-	  private double windSpeed ;
+	public WeatherReport city(String city) {
+		this.city = city;
+		return this;
+	}
 
-	  public WeatherReport city(String city) {
-	    this.city = city;
-	    return this;
-	  }
+	/**
+	 * Get city
+	 * 
+	 * @return city
+	 **/
 
-	   /**
-	   * Get city
-	   * @return city
-	  **/
-	  
-	  public String getCity() {
-	    return city;
-	  }
+	public String getCity() {
+		return city;
+	}
 
-	  public void setCity(String city) {
-	    this.city = city;
-	  }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-	  public WeatherReport cloud(String cloud) {
-	    this.cloud = cloud;
-	    return this;
-	  }
+	public WeatherReport cloud(String cloud) {
+		this.cloud = cloud;
+		return this;
+	}
 
-	   /**
-	   * Get cloud
-	   * @return cloud
-	  **/
-	  
-	  public String getCloud() {
-	    return cloud;
-	  }
+	/**
+	 * Get cloud
+	 * 
+	 * @return cloud
+	 **/
 
-	  public void setCloud(String cloud) {
-	    this.cloud = cloud;
-	  }
+	public String getCloud() {
+		return cloud;
+	}
 
-	  public WeatherReport rainAlert(String rainAlert) {
-	    this.rainAlert = rainAlert;
-	    return this;
-	  }
+	public void setCloud(String cloud) {
+		this.cloud = cloud;
+	}
 
-	   /**
-	   * Get rainAlert
-	   * @return rainAlert
-	  **/
-	  
-	  public String getRainAlert() {
-	    return rainAlert;
-	  }
+	public WeatherReport rainAlert(String rainAlert) {
+		this.rainAlert = rainAlert;
+		return this;
+	}
 
-	  public void setRainAlert(String rainAlert) {
-	    this.rainAlert = rainAlert;
-	  }
+	/**
+	 * Get rainAlert
+	 * 
+	 * @return rainAlert
+	 **/
 
-	  public WeatherReport windAlert(String windAlert) {
-	    this.windAlert = windAlert;
-	    return this;
-	  }
+	public String getRainAlert() {
+		return rainAlert;
+	}
 
-	   /**
-	   * Get windAlert
-	   * @return windAlert
-	  **/
-	 
-	  public String getWindAlert() {
-	    return windAlert;
-	  }
+	public void setRainAlert(String rainAlert) {
+		this.rainAlert = rainAlert;
+	}
 
-	  public void setWindAlert(String windAlert) {
-	    this.windAlert = windAlert;
-	  }
+	public WeatherReport windAlert(String windAlert) {
+		this.windAlert = windAlert;
+		return this;
+	}
 
-	  public WeatherReport temperatureAlert(String temperatureAlert) {
-	    this.temperatureAlert = temperatureAlert;
-	    return this;
-	  }
+	/**
+	 * Get windAlert
+	 * 
+	 * @return windAlert
+	 **/
 
-	   /**
-	   * Get temperatureAlert
-	   * @return temperatureAlert
-	  **/
-	  
-	  public String getTemperatureAlert() {
-	    return temperatureAlert;
-	  }
+	public String getWindAlert() {
+		return windAlert;
+	}
 
-	  public void setTemperatureAlert(String temperatureAlert) {
-	    this.temperatureAlert = temperatureAlert;
-	  }
+	public void setWindAlert(String windAlert) {
+		this.windAlert = windAlert;
+	}
 
-	  public WeatherReport highTemperature(double highTemperature) {
-	    this.highTemperature = highTemperature;
-	    return this;
-	  }
+	public WeatherReport temperatureAlert(String temperatureAlert) {
+		this.temperatureAlert = temperatureAlert;
+		return this;
+	}
 
-	   /**
-	   * Get highTemperature
-	   * @return highTemperature
-	  **/
-	 
-	  public double getHighTemperature() {
-	    return highTemperature;
-	  }
+	/**
+	 * Get temperatureAlert
+	 * 
+	 * @return temperatureAlert
+	 **/
 
-	  public void setHighTemperature(double highTemperature) {
-	    this.highTemperature = highTemperature;
-	  }
+	public String getTemperatureAlert() {
+		return temperatureAlert;
+	}
 
-	  public WeatherReport lowTemperature(double lowTemperature) {
-	    this.lowTemperature = lowTemperature;
-	    return this;
-	  }
+	public void setTemperatureAlert(String temperatureAlert) {
+		this.temperatureAlert = temperatureAlert;
+	}
 
-	   /**
-	   * Get lowTemperature
-	   * @return lowTemperature
-	  **/
-	 
-	  public double getLowTemperature() {
-	    return lowTemperature;
-	  }
+	public WeatherReport highTemperature(double highTemperature) {
+		this.highTemperature = highTemperature;
+		return this;
+	}
 
-	  public void setLowTemperature(double lowTemperature) {
-	    this.lowTemperature = lowTemperature;
-	  }
+	/**
+	 * Get highTemperature
+	 * 
+	 * @return highTemperature
+	 **/
 
-	  public WeatherReport windSpeed(double windSpeed) {
-	    this.windSpeed = windSpeed;
-	    return this;
-	  }
+	public double getHighTemperature() {
+		return highTemperature;
+	}
 
-	   /**
-	   * Get windSpeed
-	   * @return windSpeed
-	  **/
-	  
-	  public double getWindSpeed() {
-	    return windSpeed;
-	  }
+	public void setHighTemperature(double highTemperature) {
+		this.highTemperature = highTemperature;
+	}
 
-	  public void setWindSpeed(double windSpeed) {
-	    this.windSpeed = windSpeed;
-	  }
+	public WeatherReport lowTemperature(double lowTemperature) {
+		this.lowTemperature = lowTemperature;
+		return this;
+	}
 
+	/**
+	 * Get lowTemperature
+	 * 
+	 * @return lowTemperature
+	 **/
 
-	  @Override
-	  public boolean equals(java.lang.Object o) {
-	    if (this == o) {
-	      return true;
-	    }
-	    if (o == null || getClass() != o.getClass()) {
-	      return false;
-	    }
-	    WeatherReport weatherReport = (WeatherReport) o;
-	    return Objects.equals(this.city, weatherReport.city) &&
-	        Objects.equals(this.cloud, weatherReport.cloud) &&
-	        Objects.equals(this.rainAlert, weatherReport.rainAlert) &&
-	        Objects.equals(this.windAlert, weatherReport.windAlert) &&
-	        Objects.equals(this.temperatureAlert, weatherReport.temperatureAlert) &&
-	        Objects.equals(this.highTemperature, weatherReport.highTemperature) &&
-	        Objects.equals(this.lowTemperature, weatherReport.lowTemperature) &&
-	        Objects.equals(this.windSpeed, weatherReport.windSpeed);
-	  }
+	public double getLowTemperature() {
+		return lowTemperature;
+	}
 
-	  @Override
-	  public int hashCode() {
-	    return Objects.hash(city, cloud, rainAlert, windAlert, temperatureAlert, highTemperature, lowTemperature, windSpeed);
-	  }
+	public void setLowTemperature(double lowTemperature) {
+		this.lowTemperature = lowTemperature;
+	}
 
+	public WeatherReport windSpeed(double windSpeed) {
+		this.windSpeed = windSpeed;
+		return this;
+	}
 
-	  @Override
-	  public String toString() {
-	    StringBuilder sb = new StringBuilder();
-	    sb.append("class WeatherReport {\n");
-	    
-	    sb.append("    city: ").append(toIndentedString(city)).append("\n");
-	    sb.append("    cloud: ").append(toIndentedString(cloud)).append("\n");
-	    sb.append("    rainAlert: ").append(toIndentedString(rainAlert)).append("\n");
-	    sb.append("    windAlert: ").append(toIndentedString(windAlert)).append("\n");
-	    sb.append("    temperatureAlert: ").append(toIndentedString(temperatureAlert)).append("\n");
-	    sb.append("    highTemperature: ").append(toIndentedString(highTemperature)).append("\n");
-	    sb.append("    lowTemperature: ").append(toIndentedString(lowTemperature)).append("\n");
-	    sb.append("    windSpeed: ").append(toIndentedString(windSpeed)).append("\n");
-	    sb.append("}");
-	    return sb.toString();
-	  }
+	/**
+	 * Get windSpeed
+	 * 
+	 * @return windSpeed
+	 **/
 
-	  /**
-	   * Convert the given object to string with each line indented by 4 spaces
-	   * (except the first line).
-	   */
-	  private String toIndentedString(java.lang.Object o) {
-	    if (o == null) {
-	      return "null";
-	    }
-	    return o.toString().replace("\n", "\n    ");
-	  }
-	
+	public double getWindSpeed() {
+		return windSpeed;
+	}
+
+	public void setWindSpeed(double windSpeed) {
+		this.windSpeed = windSpeed;
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		WeatherReport weatherReport = (WeatherReport) o;
+		return Objects.equals(this.city, weatherReport.city) && Objects.equals(this.cloud, weatherReport.cloud)
+				&& Objects.equals(this.rainAlert, weatherReport.rainAlert)
+				&& Objects.equals(this.windAlert, weatherReport.windAlert)
+				&& Objects.equals(this.temperatureAlert, weatherReport.temperatureAlert)
+				&& Objects.equals(this.highTemperature, weatherReport.highTemperature)
+				&& Objects.equals(this.lowTemperature, weatherReport.lowTemperature)
+				&& Objects.equals(this.windSpeed, weatherReport.windSpeed);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(city, cloud, rainAlert, windAlert, temperatureAlert, highTemperature, lowTemperature,
+				windSpeed);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class WeatherReport {\n");
+
+		sb.append("    city: ").append(toIndentedString(city)).append("\n");
+		sb.append("    cloud: ").append(toIndentedString(cloud)).append("\n");
+		sb.append("    rainAlert: ").append(toIndentedString(rainAlert)).append("\n");
+		sb.append("    windAlert: ").append(toIndentedString(windAlert)).append("\n");
+		sb.append("    temperatureAlert: ").append(toIndentedString(temperatureAlert)).append("\n");
+		sb.append("    highTemperature: ").append(toIndentedString(highTemperature)).append("\n");
+		sb.append("    lowTemperature: ").append(toIndentedString(lowTemperature)).append("\n");
+		sb.append("    windSpeed: ").append(toIndentedString(windSpeed)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
 }

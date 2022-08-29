@@ -1,7 +1,7 @@
 package com.application.bean;
 
-public class Sys{
-    private String pod;
+public class Sys {
+	private String pod;
 
 	public String getPod() {
 		return pod;
@@ -10,5 +10,5 @@ public class Sys{
 	public void setPod(String pod) {
 		this.pod = pod;
 	}
-    
+
 }

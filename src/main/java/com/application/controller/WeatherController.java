@@ -22,30 +22,30 @@ import com.application.validator.WeatherReportValidator;
 
 @RestController
 public class WeatherController {
-	
-	 @Autowired
-	 WeatherService weatherService;
 
-	 final Logger LOGGER = LoggerFactory.getLogger(WeatherController.class);
-	
-	 @GetMapping("/weather/{city}")
+	@Autowired
+	WeatherService weatherService;
+
+	final Logger LOGGER = LoggerFactory.getLogger(WeatherController.class);
+
+	@GetMapping("/weather/{city}")
 	public ResponseEntity<WeatherReportResponse> getCityWeather(@PathVariable String city) throws RestException {
-		
+
 		List<WeatherReport> weatherReportList = weatherService.getWeatherReport(city);
 
-		if(WeatherReportValidator.weatherReportcheck.test(weatherReportList)) {
-			LOGGER.error(ApplicationConstants.ERROR_CODE + RestErrorCode.NO_CITY_FOUND.getErrorCode() + ApplicationConstants.ERROR_MESSAGE + RestErrorCode.NO_CITY_FOUND.getErrorMessage() + ApplicationConstants.CITY + city);
-			throw new RestException(RestErrorCode.NO_CITY_FOUND.getErrorMessage(),RestErrorCode.NO_CITY_FOUND.getErrorCode());   	
-			}
-		WeatherReportResponse weatherReportResponse= ApplicationResponseConverter.weatherReportResponse(weatherReportList);
-		return ResponseEntity.ok()
-			      .cacheControl(CacheControl.maxAge(ApplicationConstants.CACHE_TIME, TimeUnit.MINUTES).mustRevalidate())
-			      .body(weatherReportResponse);
-			
+		if (WeatherReportValidator.weatherReportcheck.test(weatherReportList)) {
+			LOGGER.error(ApplicationConstants.ERROR_CODE + RestErrorCode.NO_CITY_FOUND.getErrorCode()
+					+ ApplicationConstants.ERROR_MESSAGE + RestErrorCode.NO_CITY_FOUND.getErrorMessage()
+					+ ApplicationConstants.CITY + city);
+			throw new RestException(RestErrorCode.NO_CITY_FOUND.getErrorMessage(),
+					RestErrorCode.NO_CITY_FOUND.getErrorCode());
 		}
-		
-		
-		
-	
+		WeatherReportResponse weatherReportResponse = ApplicationResponseConverter
+				.weatherReportResponse(weatherReportList);
+		return ResponseEntity.ok()
+				.cacheControl(CacheControl.maxAge(ApplicationConstants.CACHE_TIME, TimeUnit.MINUTES).mustRevalidate())
+				.body(weatherReportResponse);
+
+	}
 
 }

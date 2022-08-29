@@ -8,10 +8,11 @@ import com.application.bean.WeatherReportResponse;
 
 public interface ApplicationResponseConverter {
 	public static WeatherReportResponse weatherReportResponse(List<WeatherReport> weatherReportList) {
-		WeatherReportResponse weatherReportResponse = new  WeatherReportResponse();
-		Consumer<WeatherReport> addReportConsumer = weatherReport -> weatherReportResponse.addWeatherReportsItem(weatherReport);
+		WeatherReportResponse weatherReportResponse = new WeatherReportResponse();
+		Consumer<WeatherReport> addReportConsumer = weatherReport -> weatherReportResponse
+				.addWeatherReportsItem(weatherReport);
 		weatherReportList.forEach(addReportConsumer);
-		
+
 		return weatherReportResponse;
 	}
 

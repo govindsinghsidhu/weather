@@ -14,5 +14,5 @@ public class Rain {
 	public void setThreeH(String threeH) {
 		this.threeH = threeH;
 	}
-	
+
 }

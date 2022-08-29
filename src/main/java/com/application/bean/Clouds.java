@@ -1,6 +1,6 @@
 package com.application.bean;
 
-public class Clouds{
+public class Clouds {
 	private int all;
 
 	public int getAll() {
@@ -10,5 +10,5 @@ public class Clouds{
 	public void setAll(int all) {
 		this.all = all;
 	}
-	
+
 }

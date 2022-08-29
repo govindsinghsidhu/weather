@@ -6,5 +6,5 @@ import com.application.bean.WeatherReport;
 
 public interface WeatherService {
 
-	 List<WeatherReport> getWeatherReport(String city);
+	List<WeatherReport> getWeatherReport(String city);
 }

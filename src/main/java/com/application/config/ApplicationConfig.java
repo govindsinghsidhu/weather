@@ -18,44 +18,38 @@ public class ApplicationConfig {
 
 	@Bean
 	public ApplicationDataRepository ApplicationDataRepositoryBean() {
-		ApplicationDataRepository applicationDataRepository =new ApplicationDataRepository();
+		ApplicationDataRepository applicationDataRepository = new ApplicationDataRepository();
 		applicationDataRepository.init();
 		return applicationDataRepository;
 	}
+
 	@Bean
-	  public RestTemplate restTemplate() {
-	    SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-	    RestTemplate restTemplate = new RestTemplate(requestFactory);
-	    restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient())));
-	    return restTemplate;
-	  }
+	public RestTemplate restTemplate() {
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		restTemplate.setRequestFactory(
+				new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient())));
+		return restTemplate;
+	}
 
-	  @Bean
-	  public HttpClient httpClient() {
-	    return CachingHttpClientBuilder
-	      .create()
-	      .setCacheConfig(cacheConfig())
-	      .build();
-	  }
+	@Bean
+	public HttpClient httpClient() {
+		return CachingHttpClientBuilder.create().setCacheConfig(cacheConfig()).build();
+	}
 
-	  @Bean
-	  public CacheConfig cacheConfig() {
-	    return CacheConfig
-	      .custom()
-	      .setMaxObjectSize(500000) 
-	      .setMaxCacheEntries(2000)
-	      .setNeverCacheHTTP10ResponsesWithQueryString(false)
-	      .build();
-	  }
-	  
-	
+	@Bean
+	public CacheConfig cacheConfig() {
+		return CacheConfig.custom().setMaxObjectSize(500000).setMaxCacheEntries(2000)
+				.setNeverCacheHTTP10ResponsesWithQueryString(false).build();
+	}
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
-		      return new WebMvcConfigurer() {
-		         @Override
-		         public void addCorsMappings(CorsRegistry registry) {
-		            registry.addMapping("/**").allowedOrigins("http://localhost:8080");
-		         }
-		      };
-		   }
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:8080");
+			}
+		};
+	}
 }

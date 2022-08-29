@@ -26,63 +26,62 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceImpl.class);
-	
 
 	@Override
-	public List<WeatherReport> getWeatherReport(String city){
-		
+	public List<WeatherReport> getWeatherReport(String city) {
+
 		WeatherData weatherData = fetchWeatherData(city);
 		return buildWeatherReport(weatherData);
 	}
 
 	private List<WeatherReport> buildWeatherReport(WeatherData weatherData) {
 		List<WeatherReport> weatherReportList = new ArrayList<>();
-		if(weatherData.getList() != null) {
-		 for(com.application.bean.List list : weatherData.getList()) {
-			WeatherReport weatherReport = new WeatherReport();
-			
-			double maxTemperature = list.getMain().getTemp_max();
-			double windSpeed = list.getWind().getSpeed();
-			
-			weatherReport.setCity(weatherData.getCity().getName());
-			weatherReport.setHighTemperature(maxTemperature);
-			weatherReport.setLowTemperature(list.getMain().getTemp_min());
-			weatherReport.setWindSpeed(windSpeed);
-			Weather weather = list.getWeather().get(0);
-			weatherReport.setCloud(weather.getDescription());
-			
-			WeatherReportValidator.temeratureAlert.apply(maxTemperature, weatherReport);
-			WeatherReportValidator.windAlert.apply(windSpeed, weatherReport);		
-			WeatherReportValidator.rainAlert.apply(weather.getMain(), weatherReport);
-			
-			
-			weatherReportList.add(weatherReport);
+		if (weatherData.getList() != null) {
+			for (com.application.bean.List list : weatherData.getList()) {
+				WeatherReport weatherReport = new WeatherReport();
+
+				double maxTemperature = list.getMain().getTemp_max();
+				double windSpeed = list.getWind().getSpeed();
+
+				weatherReport.setCity(weatherData.getCity().getName());
+				weatherReport.setHighTemperature(maxTemperature);
+				weatherReport.setLowTemperature(list.getMain().getTemp_min());
+				weatherReport.setWindSpeed(windSpeed);
+				Weather weather = list.getWeather().get(0);
+				weatherReport.setCloud(weather.getDescription());
+
+				WeatherReportValidator.temeratureAlert.apply(maxTemperature, weatherReport);
+				WeatherReportValidator.windAlert.apply(windSpeed, weatherReport);
+				WeatherReportValidator.rainAlert.apply(weather.getMain(), weatherReport);
+
+				weatherReportList.add(weatherReport);
+			}
 		}
-	}
 		return weatherReportList;
-		
+
 	}
+
 	private WeatherData fetchWeatherData(String city) {
 		WeatherData weatherData = new WeatherData();
 		try {
-		  HttpHeaders headers = new HttpHeaders();
-	      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-	      HttpEntity <String> entity = new HttpEntity<String>(headers);
-	      
-	      String uri = WeatherReportValidator.getURI(city);
-	      
-	      String jsonResult = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class).getBody();
-	     
-	      ObjectMapper om = new ObjectMapper();
-	      weatherData= om.readValue(jsonResult, WeatherData.class);
-		
+			HttpHeaders headers = new HttpHeaders();
+			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+			String uri = WeatherReportValidator.getURI(city);
+
+			String jsonResult = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class).getBody();
+
+			ObjectMapper om = new ObjectMapper();
+			weatherData = om.readValue(jsonResult, WeatherData.class);
+
 		} catch (HttpClientErrorException | JsonProcessingException e) {
 			LOGGER.error(e.getMessage());
-		} 
-	      return weatherData;
-	
+		}
+		return weatherData;
+
 	}
-	
+
 }
