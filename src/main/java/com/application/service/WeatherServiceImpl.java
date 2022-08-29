@@ -3,6 +3,8 @@ package com.application.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,10 @@ public class WeatherServiceImpl implements WeatherService {
 	RestTemplate restTemplate;
 	
 	final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceImpl.class);
-	
-	
+	private Predicate<Double> temperatureCheck = temperature -> temperature > ApplicationConstants.TEMP_ALERT_LIMIT;
+	private Predicate<Double> windCheck = windSpeed -> windSpeed > ApplicationConstants.WIND_ALERT_LIMIT;
+	private Predicate<String> rainCheck = rainStatus -> rainStatus.contains(ApplicationConstants.RAIN);
+
 	@Override
 	public List<WeatherReport> getWeatherReport(String city){
 		
@@ -51,13 +55,13 @@ public class WeatherServiceImpl implements WeatherService {
 			Weather weather = list.getWeather().get(0);
 			weatherReport.setCloud(weather.getDescription());
 			
-			if(list.getMain().getTemp_max() > ApplicationConstants.TEMP_ALERT_LIMIT)
+			if(temperatureCheck.test(list.getMain().getTemp_max()))
 				weatherReport.setTemperatureAlert(ApplicationConstants.USE_SUNSCREEN);
 			
-			if(list.getWind().getSpeed() > ApplicationConstants.WIND_ALERT_LIMIT)
+			if(windCheck.test(list.getWind().getSpeed()))
 				weatherReport.setWindAlert(ApplicationConstants.TOO_WINDY);
 			
-			if(weather.getMain().contains(ApplicationConstants.RAIN))
+			if(rainCheck.test(weather.getMain()))
 				weatherReport.setRainAlert(ApplicationConstants.CARRY_UMBRELLA);
 			
 			weatherReportList.add(weatherReport);
