@@ -42,6 +42,9 @@
 	            type: "GET",
 	            url: "http://localhost:8085/api/v1/weather/"+city,
 	            data: $(this).serialize(),
+	            headers: {
+	                "Authorization": "Basic " + btoa("user:password"),
+	              },
 	            success: function(data){
 	            	
 	            	var result =JSON.stringify(data);

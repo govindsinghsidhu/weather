@@ -1,7 +1,6 @@
 package com.application.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,10 +16,9 @@ public class ApplicationSecurity {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-		http.httpBasic().and().requestMatcher(EndpointRequest.toAnyEndpoint())
-				.authorizeRequests((requests) -> requests.anyRequest().hasRole("ADMIN"));
-
+		http.cors().and().httpBasic().and().authorizeRequests().antMatchers("/weather/**")
+				.access("hasRole('ADMIN') or hasRole('USER')").antMatchers("/actuator/**").access("hasRole('ADMIN')")
+				.anyRequest().authenticated();
 		return http.build();
 	}
 

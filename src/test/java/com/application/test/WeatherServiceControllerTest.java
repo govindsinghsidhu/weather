@@ -1,7 +1,12 @@
 package com.application.test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Base64;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +22,9 @@ public class WeatherServiceControllerTest extends AbstractTest {
 	@Test
 	public void getWeatherReportTest() throws Exception {
 		String uri = "/weather/delhi";
-		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE))
+		String encoding = Base64.getEncoder().encodeToString(("user:password").getBytes());
+
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).header(HttpHeaders.AUTHORIZATION, "Basic " + encoding).accept(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
 
 		String content = mvcResult.getResponse().getContentAsString();
@@ -31,7 +38,9 @@ public class WeatherServiceControllerTest extends AbstractTest {
 	public void getWeatherReportRestExceptionTest() throws Exception {
 
 		String uri = "/weather/nocity";
-		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE))
+		String encoding = Base64.getEncoder().encodeToString(("user:password").getBytes());
+
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).header(HttpHeaders.AUTHORIZATION, "Basic " + encoding).accept(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
 
 		String content = mvcResult.getResponse().getContentAsString();
