@@ -50,14 +50,14 @@
 	            	var weatherReports = JSON.stringify(json["weatherReports"]);
 	            	
 	            	var list = JSON.parse(weatherReports);
-	            	var htmltable ="<table id='mytable' border='1' align='center'><tr><td>Clould Status</td><td>High Temperature</td><td>LowTemperature</td><td>Wind Speed</td><td>Rain Alert</td><td>Wind Alert</td><td>Temperature Alert</td><tr>";
+	            	var htmltable ="<table id='mytable' border='1' align='center'><tr><td>Day</td><td>Clould Status</td><td>High Temperature</td><td>LowTemperature</td><td>Wind Speed</td><td>Rain Alert</td><td>Wind Alert</td><td>Temperature Alert</td><tr>";
 	            	 
-	            	var td2,td3,td4,td5,td6,td7,td8;
+	            	var td1,td2,td3,td4,td5,td6,td7,td8;
 	            	 for(var i=0;i<list.length;i++)
 	            	    { 
 	            	        
-	            	         
-	            	         td2="<tr><td>"+list[i]["cloud"]+"</td>";
+	            	         td1="<tr><tr><td> Day "+(i+1)+"</td>";
+	            	         td2="<td>"+list[i]["cloud"]+"</td>";
 	            	        if(list[i]["rainAlert"] == null)
 	            	        td3 = "<td> No Alert</td>";
 	            	        else
@@ -75,8 +75,7 @@
 	            	         td6="<td>"+list[i]["highTemperature"]+" celsius</td>";
 	            	         td7="<td>"+list[i]["lowTemperature"]+" celsius</td>";
 	            	         td8="<td>"+list[i]["windSpeed"]+" metre/sec</td>";
-	            	         htmltable =  htmltable+td2+td6+td7+td8+td3+td4+td5;
-	            	       
+	            	         htmltable =  htmltable+td1+td2+td6+td7+td8+td3+td4+td5;
 	            	    }  
 	            	 division.innerHTML=htmltable+"</table>";
 	            },
