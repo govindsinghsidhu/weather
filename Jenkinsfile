@@ -24,6 +24,7 @@ stage('Push image') {
         withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh 'docker push dockerhublive/weather:latest'
+          sh 'docker rmi dockerhublive/weather:latest'  
         }
       }
     }
@@ -40,11 +41,6 @@ steps{
 sh 'kubectl rollout restart deployment weather'
 }
 }
-stage('Cleanup') {
-    agent any
-steps{
-sh 'docker rmi dockerhublive/weather'
-}       
-}
+
    }
 }
