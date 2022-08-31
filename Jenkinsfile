@@ -46,4 +46,5 @@ steps{
 sh 'docker rmi dockerhublive/weather:latest'
 }       
 }
+   }
 }
