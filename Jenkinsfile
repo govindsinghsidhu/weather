@@ -15,7 +15,7 @@ pipeline {
 stage('Build image') {
     agent any
 steps{
-sh 'docker build -t dockerhublive/weather::${BUILD_NUMBER} .'
+sh 'docker build -t dockerhublive/weather:${BUILD_NUMBER} .'
 }
 }
 stage('Push image') {
@@ -23,8 +23,8 @@ stage('Push image') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push dockerhublive/weather::${BUILD_NUMBER}'
-          sh 'docker rmi dockerhublive/weather::${BUILD_NUMBER}'  
+          sh 'docker push dockerhublive/weather:${BUILD_NUMBER}'
+          sh 'docker rmi dockerhublive/weather:${BUILD_NUMBER}'  
         }
       }
     }
@@ -33,7 +33,7 @@ stage('Deploy') {
     agent any
 steps{
 sh 'kubectl apply -f deployment.yaml'
-sh 'kubectl set image deployments/weather weather=dockerhublive/weather::${BUILD_NUMBER}'    
+sh 'kubectl set image deployments/weather weather=dockerhublive/weather:${BUILD_NUMBER}'    
 }
 }
 
