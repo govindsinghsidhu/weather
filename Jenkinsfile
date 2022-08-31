@@ -35,7 +35,7 @@ stage('Deploy') {
     agent any
 steps{
 sh 'kubectl apply -f deployment.yaml'
-sh 'kubectl set image deployments/weather weather=dockerhublive/weather:${BUILD_NUMBER}'    
+sh 'kubectl rollout restart deployment weather'    
 }
 }
 
