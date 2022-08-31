@@ -24,6 +24,8 @@ stage('Push image') {
         withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh 'docker push dockerhublive/weather:${BUILD_NUMBER}'
+          sh 'docker image tag dockerhublive/weather:${BUILD_NUMBER} dockerhublive/weather:latest'
+          sh 'docker push dockerhublive/weather:latest'
           sh 'docker rmi dockerhublive/weather:${BUILD_NUMBER}'  
         }
       }
