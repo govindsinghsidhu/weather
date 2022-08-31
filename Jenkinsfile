@@ -15,7 +15,7 @@ pipeline {
 stage('Build image') {
     agent any
 steps{
-sh 'docker build -t dockerhublive/weather:${BUILD_NUMBER} -t dockerhublive/weather:latest .'
+sh 'docker build -t dockerhublive/weather:latest -t dockerhublive/weather:${BUILD_NUMBER} .'
 }
 }
 stage('Push image') {
