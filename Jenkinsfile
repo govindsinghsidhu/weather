@@ -43,7 +43,7 @@ sh 'kubectl rollout restart deployment weather'
 stage('Cleanup') {
     agent any
 steps{
-sh 'docker rmi dockerhublive/weather:latest'
+sh 'docker rmi dockerhublive/weather'
 }       
 }
    }
