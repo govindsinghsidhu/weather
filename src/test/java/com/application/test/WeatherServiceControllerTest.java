@@ -13,8 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.application.bean.RestError;
-import com.application.bean.WeatherReportResponse;
+import com.application.dto.RestError;
+import com.application.dto.WeatherReportResponse;
 import com.application.errorcode.RestErrorCode;
 
 public class WeatherServiceControllerTest extends AbstractTest {

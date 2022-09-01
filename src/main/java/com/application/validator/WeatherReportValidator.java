@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-import com.application.bean.WeatherReport;
 import com.application.common.ApplicationConstants;
+import com.application.dto.WeatherReport;
 
 public interface WeatherReportValidator {
 
 	public Predicate<List<WeatherReport>> weatherReportcheck = weatherReportList -> (weatherReportList == null
 			|| weatherReportList.size() == 0);
-	public Predicate<List<com.application.bean.List>> weatherDatatcheck = weatherDatatList -> (weatherDatatList != null
+	public Predicate<List<com.application.dto.List>> weatherDatatcheck = weatherDatatList -> (weatherDatatList != null
 			&& weatherDatatList.size() > 0);
 
 	public Predicate<Double> temperatureCheck = temperature -> temperature > ApplicationConstants.TEMP_ALERT_LIMIT;
@@ -33,13 +33,4 @@ public interface WeatherReportValidator {
 			weatherReport.setRainAlert(ApplicationConstants.CARRY_UMBRELLA);
 		return weatherReport;
 	};
-
-	public static String getURI(String city) {
-
-		return new StringBuilder().append(ApplicationConstants.BASE_URL).append(ApplicationConstants.VERSION)
-				.append(ApplicationConstants.API_TYPE_PARAM).append(city).append(ApplicationConstants.APP_ID_PARAM)
-				.append(ApplicationConstants.KEY).append(ApplicationConstants.COUNT_PARAM)
-				.append(ApplicationConstants.DAY_COUNT).append(ApplicationConstants.UNITS_PARAM)
-				.append(ApplicationConstants.UNITS).toString();
-	}
 }

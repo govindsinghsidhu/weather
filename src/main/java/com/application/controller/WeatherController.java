@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.application.bean.WeatherReport;
-import com.application.bean.WeatherReportResponse;
 import com.application.common.ApplicationConstants;
 import com.application.converter.ApplicationResponseConverter;
+import com.application.dto.WeatherReport;
+import com.application.dto.WeatherReportResponse;
 import com.application.errorcode.RestErrorCode;
 import com.application.exception.RestException;
 import com.application.service.WeatherService;

@@ -2,7 +2,7 @@ package com.application.service;
 
 import java.util.List;
 
-import com.application.bean.WeatherReport;
+import com.application.dto.WeatherReport;
 
 public interface WeatherService {
 

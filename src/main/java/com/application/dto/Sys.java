@@ -1,4 +1,4 @@
-package com.application.bean;
+package com.application.dto;
 
 public class Sys {
 	private String pod;

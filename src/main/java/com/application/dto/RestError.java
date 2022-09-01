@@ -1,4 +1,4 @@
-package com.application.bean;
+package com.application.dto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

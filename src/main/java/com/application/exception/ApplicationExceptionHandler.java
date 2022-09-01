@@ -17,8 +17,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.application.bean.RestError;
 import com.application.common.ApplicationConstants;
+import com.application.dto.RestError;
 import com.application.errorcode.RestErrorCode;
 
 @ControllerAdvice

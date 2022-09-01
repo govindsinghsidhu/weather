@@ -3,8 +3,8 @@ package com.application.converter;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.application.bean.WeatherReport;
-import com.application.bean.WeatherReportResponse;
+import com.application.dto.WeatherReport;
+import com.application.dto.WeatherReportResponse;
 
 public interface ApplicationResponseConverter {
 	public static WeatherReportResponse weatherReportResponse(List<WeatherReport> weatherReportList) {
