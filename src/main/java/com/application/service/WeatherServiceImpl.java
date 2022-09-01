@@ -3,6 +3,8 @@ package com.application.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,27 +40,14 @@ public class WeatherServiceImpl implements WeatherService {
 
 	private List<WeatherReport> buildWeatherReport(WeatherData weatherData) {
 		List<WeatherReport> weatherReportList = new ArrayList<>();
-		if (weatherData.getList() != null) {
-			for (com.application.bean.List list : weatherData.getList()) {
-				WeatherReport weatherReport = new WeatherReport();
+		List<com.application.bean.List> weatherDataList = weatherData.getList();
 
-				double maxTemperature = list.getMain().getTemp_max();
-				double windSpeed = list.getWind().getSpeed();
-
-				weatherReport.setCity(weatherData.getCity().getName());
-				weatherReport.setHighTemperature(maxTemperature);
-				weatherReport.setLowTemperature(list.getMain().getTemp_min());
-				weatherReport.setWindSpeed(windSpeed);
-				Weather weather = list.getWeather().get(0);
-				weatherReport.setCloud(weather.getDescription());
-
-				WeatherReportValidator.temeratureAlert.apply(maxTemperature, weatherReport);
-				WeatherReportValidator.windAlert.apply(windSpeed, weatherReport);
-				WeatherReportValidator.rainAlert.apply(weather.getMain(), weatherReport);
-
-				weatherReportList.add(weatherReport);
-			}
+		if (WeatherReportValidator.weatherDatatcheck.test(weatherDataList)) {
+			Consumer<com.application.bean.List> weatherDataConsumer = getWeatherDataConsumer(weatherData,
+					weatherReportList);
+			weatherDataList.forEach(weatherDataConsumer);
 		}
+
 		return weatherReportList;
 
 	}
@@ -81,6 +70,33 @@ public class WeatherServiceImpl implements WeatherService {
 			LOGGER.error(e.getMessage());
 		}
 		return weatherData;
+
+	}
+
+	private Consumer<com.application.bean.List> getWeatherDataConsumer(WeatherData weatherData,
+			List<WeatherReport> weatherReportList) {
+		Consumer<com.application.bean.List> weatherDataConsumer = (list) -> {
+
+			WeatherReport weatherReport = new WeatherReport();
+
+			double maxTemperature = list.getMain().getTemp_max();
+			double windSpeed = list.getWind().getSpeed();
+
+			weatherReport.setCity(weatherData.getCity().getName());
+			weatherReport.setHighTemperature(maxTemperature);
+			weatherReport.setLowTemperature(list.getMain().getTemp_min());
+			weatherReport.setWindSpeed(windSpeed);
+			Weather weather = list.getWeather().get(0);
+			weatherReport.setCloud(weather.getDescription());
+
+			WeatherReportValidator.temeratureAlert.apply(maxTemperature, weatherReport);
+			WeatherReportValidator.windAlert.apply(windSpeed, weatherReport);
+			WeatherReportValidator.rainAlert.apply(weather.getMain(), weatherReport);
+
+			weatherReportList.add(weatherReport);
+		};
+
+		return weatherDataConsumer;
 
 	}
 

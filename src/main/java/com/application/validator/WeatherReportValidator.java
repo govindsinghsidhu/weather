@@ -9,7 +9,11 @@ import com.application.common.ApplicationConstants;
 
 public interface WeatherReportValidator {
 
-	public Predicate<List<WeatherReport>> weatherReportcheck = list -> (list == null || list.size() == 0);
+	public Predicate<List<WeatherReport>> weatherReportcheck = weatherReportList -> (weatherReportList == null
+			|| weatherReportList.size() == 0);
+	public Predicate<List<com.application.bean.List>> weatherDatatcheck = weatherDatatList -> (weatherDatatList != null
+			&& weatherDatatList.size() > 0);
+
 	public Predicate<Double> temperatureCheck = temperature -> temperature > ApplicationConstants.TEMP_ALERT_LIMIT;
 	public Predicate<Double> windCheck = windSpeed -> windSpeed > ApplicationConstants.WIND_ALERT_LIMIT;
 	public Predicate<String> rainCheck = rainStatus -> rainStatus.contains(ApplicationConstants.RAIN);
