@@ -12,25 +12,27 @@ info:
 host: "weatherreport.com"
 basePath: "/api/v1"
 paths:
-  /weather/city/:  
+  /weather/{city}:  
     get:
       tags:
         - weather
       summary: Get weather report for given city 
       description: Get weather reports like temperature, windspeed, clouds etc
       operationId: getCityWeather
+      produces:
+        - application/json
       parameters:
-        - $ref: '#/parameters/acceptParam'
-        - $ref: '#/parameters/userAgentParam'
-        - $ref: '#/parameters/acceptEncodingParam'
-        - $ref: '#/parameters/cookieParam'
-        - $ref: '#/parameters/xRequestIdParam'
+        - name: city
+          required: true
+          type: string
+          in: path
+          description: city name
       responses:
         '200':
           description: List of Days Reports of weather 
           schema:
             $ref: '#/definitions/WeatherReportResponse'
-        '400':
+        '409':
           description: |
             ** Error codes: **
             * 1000 - No city found
